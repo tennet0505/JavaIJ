@@ -2,16 +2,34 @@
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        // Press Opt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        // Press Ctrl+R or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        int age = 23;
+        String name = "Oleg";
+        double salaryExpectation = 100000;
+        boolean lookingForJob = true;
 
-            // Press Ctrl+D to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Cmd+F8.
-            System.out.println("i = " + i);
+        System.out.println(age);
+        System.out.println(name);
+        System.out.println("salaryExpectation" + salaryExpectation + "$/annually");
+        System.out.println("lookingForJob: " + lookingForJob);
+
+        Main.loopExample();
+        Main.test();
+        Main.testWithParam(1000);
+    }
+
+    public static void loopExample() {
+        int[] arrayOfInt = {0, 1, 3, 5, 7};
+        for (int valueOfArray : arrayOfInt) {
+            System.out.println("valueOfArray: " + valueOfArray);
         }
+    }
+
+    public static void test() {
+        System.out.println("new method call");
+    }
+    public static void testWithParam(int newValue) {
+        System.out.print("print new value form params: ");
+        System.out.print(newValue);
     }
 }
