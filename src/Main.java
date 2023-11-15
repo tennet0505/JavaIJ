@@ -23,6 +23,93 @@ public class Main {
         secondPlayerName = secondUserName;
 
         System.out.printf("Nice to meet you %s you are playing with \"O\"\n", secondUserName);
+        Main.exampleCellCoordinate();
+        Main.enterCellCoordinate(firstPlayerName, scanner);
+    }
+
+    static void chooseCellWithValidation(int x, int y, String playerName, Scanner scanner) {
+        String cellCoordinate = String.format("(%s,%s)",x, y);
+        boolean isValid = validationCoordinate(cellCoordinate);
+        if (isValid) {
+        switch(cellCoordinate) {
+            case "(0,0)":
+                System.out.println(" x |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                break;
+            case "(0,1)":
+                System.out.println("   | x |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                break;
+            case "(0,2)":
+                System.out.println("   |   | x ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                break;
+            case "(1,0)":
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println(" x |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                break;
+            case "(1,1)":
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   | x |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                break;
+            case "(1,2)":
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   | x ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                break;
+            case "(2,0)":
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println(" x |   |   ");
+                break;
+            case "(2,1)":
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   | x |   ");
+                break;
+            case "(2,2)":
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   | x ");
+                break;
+            default:
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+                System.out.println("-----------");
+                System.out.println("   |   |   ");
+           }
+        } else {
+            System.out.println("Please enter correct cell coordinate");
+            exampleCellCoordinate();
+            enterCellCoordinate(playerName, scanner);
+        };
+    }
+
+    static void exampleCellCoordinate() {
         System.out.println("\n");
         System.out.println("(0,0) | (0,1) | (0,2)");
         System.out.println("------------");
@@ -30,11 +117,20 @@ public class Main {
         System.out.println("------------");
         System.out.println("(2,0) | (2,1) | (2,2)");
         System.out.println("\n");
-        System.out.printf("Let's start %s. \nChoose cell x: ", firstPlayerName);
+    }
+
+    static void enterCellCoordinate(String playerName, Scanner scanner) {
+        System.out.printf("Let's start %s. \nChoose cell x: ", playerName);
         int x = scanner.nextInt();
         System.out.print("Now choose y: ");
         int y = scanner.nextInt();
-        System.out.printf("%s. Your cell is (%s, %s) \n", firstPlayerName, x, y);
+        System.out.printf("%s. Your cell is (%s, %s) \n", playerName, x, y);
+        chooseCellWithValidation(x, y, playerName, scanner);
     }
-
+    static boolean validationCoordinate(String cellCoordiante) {
+        return switch (cellCoordiante) {
+            case "(0,0)", "(0,1)", "(0,2)", "(1,0)", "(1,1)", "(1,2)", "(2,0)", "(2,1)", "(2,2)" -> true;
+            default -> false;
+        };
+    }
 }
