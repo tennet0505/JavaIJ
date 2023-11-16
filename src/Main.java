@@ -37,8 +37,10 @@ public class Main {
     //input coordinate
     static void enterCellCoordinate(String playerName, Scanner scanner) {
         isFirstPlayerPlay = Objects.equals(playerName, firstPlayerName);
-        System.out.printf(passedSteps.length == 0 ?
-                "Let's start %s. \nChoose cell x:" : "Your move %s. \nChoose cell x:", playerName);
+
+        System.out.print(passedSteps.length == 0 ?
+                "Let's start " + playerName + ". \nChoose x: " : "Your move " + playerName + ". \nChoose x: ");
+        scanner.useDelimiter("[\\s,]+");
         int x = scanner.nextInt();
         System.out.print("Now choose y: ");
         int y = scanner.nextInt();
