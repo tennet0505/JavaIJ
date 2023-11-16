@@ -2,7 +2,6 @@
 // then press Enter. You can now see whitespace characters in your code.
 
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 public class Main {
@@ -57,7 +56,7 @@ public class Main {
                 System.out.print(Main.ticTacArray[i][j]);
             }
             System.out.println("\t");
-        };
+        }
 
         if (gameIsEnded()) {
             System.out.printf("%s you are a WINNER!", (isFirstPlayerPlay ? firstPlayerName : secondPlayerName));
@@ -65,8 +64,8 @@ public class Main {
             addPassedStep(x,y);
             isFirstPlayerPlay = !isFirstPlayerPlay;
             enterCellCoordinate((isFirstPlayerPlay ? firstPlayerName : secondPlayerName), scanner);
-        };
-    };
+        }
+    }
 
     //checking game's status
     static boolean gameIsEnded() {
@@ -78,7 +77,7 @@ public class Main {
                 isEnded = true;
                 break;
             }
-        };
+        }
         for (int j = 0; j < Main.ticTacArray.length; j++) {
             if (Main.ticTacArray[0][j].equals(Main.ticTacArray[1][j])
                     && Main.ticTacArray[0][j].equals(Main.ticTacArray[2][j])
@@ -86,28 +85,26 @@ public class Main {
                 isEnded = true;
                 break;
             }
-        };
+        }
         if (Main.ticTacArray[0][0].equals(Main.ticTacArray[1][1])
                     && Main.ticTacArray[0][0].equals(Main.ticTacArray[2][2])
                     && !Main.ticTacArray[0][0].equals(" _ ")) {
                 isEnded = true;
-        };
+        }
         if (Main.ticTacArray[2][0].equals(Main.ticTacArray[1][1])
                 && Main.ticTacArray[2][0].equals(Main.ticTacArray[0][2])
                 && !Main.ticTacArray[2][0].equals(" _ ")) {
             isEnded = true;
-        };
+        }
         return isEnded;
-    };
+    }
 
 
     //update array with passed coordinates
     static void addPassedStep(int x, int y) {
         String cellCoordinate = String.format("(%s,%s)",x, y);
         String[] updatedArray = new String[Main.passedSteps.length + 1];
-        for (int i = 0; i < Main.passedSteps.length; i++) {
-            updatedArray[i] = Main.passedSteps[i];
-        }
+        System.arraycopy(Main.passedSteps, 0, updatedArray, 0, Main.passedSteps.length);
         updatedArray[Main.passedSteps.length] = cellCoordinate;
         Main.passedSteps = updatedArray;
     }
@@ -137,7 +134,7 @@ public class Main {
             System.out.println("Please enter correct cell coordinate");
             exampleCellCoordinate();
             enterCellCoordinate(playerName, scanner);
-        };
+        }
     }
 
     //example cell coordinate
