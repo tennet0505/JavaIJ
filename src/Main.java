@@ -47,6 +47,33 @@ public class Main {
         chooseCellWithValidation(x, y, playerName, scanner);
     }
 
+    //choose coordinate for player
+    static void chooseCellWithValidation(int x, int y, String playerName, Scanner scanner) {
+        String cellCoordinate = String.format("(%s,%s)",x, y);
+        boolean isValid = validationCoordinate(cellCoordinate);
+        boolean isContainCoordinate = Arrays.asList(passedSteps).contains(cellCoordinate);
+        if (isContainCoordinate) {
+            System.out.println("----- This cell is chosen, please choose other cell. ------");
+            enterCellCoordinate(playerName, scanner);
+            return;
+        }
+        if (isValid) {
+            setupTicTacArray(x, y, isFirstPlayerPlay);
+        } else {
+            System.out.println("Please enter correct cell coordinate");
+            exampleCellCoordinate();
+            enterCellCoordinate(playerName, scanner);
+        }
+    }
+
+    // check validation of input coordinate
+    static boolean validationCoordinate(String cellCoordiante) {
+        return switch (cellCoordiante) {
+            case "(0,0)", "(0,1)", "(0,2)", "(1,0)", "(1,1)", "(1,2)", "(2,0)", "(2,1)", "(2,2)" -> true;
+            default -> false;
+        };
+    }
+
     // setup tic tac array
     static void setupTicTacArray(int x, int y, boolean isFirstPlayerPlay) {
 
@@ -58,7 +85,7 @@ public class Main {
             System.out.println("\t");
         }
 
-        if (gameIsEnded()) {
+        if (isGameEnded()) {
             System.out.printf("%s you are a WINNER!", (isFirstPlayerPlay ? firstPlayerName : secondPlayerName));
         } else {
             addPassedStep(x,y);
@@ -68,7 +95,7 @@ public class Main {
     }
 
     //checking game's status
-    static boolean gameIsEnded() {
+    static boolean isGameEnded() {
         boolean isEnded = false;
         for (int i = 0; i < Main.ticTacArray.length; i++) {
             if (Main.ticTacArray[i][0].equals(Main.ticTacArray[i][1])
@@ -107,34 +134,6 @@ public class Main {
         System.arraycopy(Main.passedSteps, 0, updatedArray, 0, Main.passedSteps.length);
         updatedArray[Main.passedSteps.length] = cellCoordinate;
         Main.passedSteps = updatedArray;
-    }
-
-    // check validation of input coordinate
-    static boolean validationCoordinate(String cellCoordiante) {
-        return switch (cellCoordiante) {
-            case "(0,0)", "(0,1)", "(0,2)", "(1,0)", "(1,1)", "(1,2)", "(2,0)", "(2,1)", "(2,2)" -> true;
-            default -> false;
-        };
-    }
-
-
-    //choose coordinate for player
-    static void chooseCellWithValidation(int x, int y, String playerName, Scanner scanner) {
-        String cellCoordinate = String.format("(%s,%s)",x, y);
-        boolean isValid = validationCoordinate(cellCoordinate);
-        boolean isContainCoordinate = Arrays.asList(passedSteps).contains(cellCoordinate);
-        if (isContainCoordinate) {
-            System.out.println("----- This cell is chosen, please choose other cell. ------");
-            enterCellCoordinate(playerName, scanner);
-            return;
-        }
-        if (isValid) {
-            setupTicTacArray(x, y, isFirstPlayerPlay);
-        } else {
-            System.out.println("Please enter correct cell coordinate");
-            exampleCellCoordinate();
-            enterCellCoordinate(playerName, scanner);
-        }
     }
 
     //example cell coordinate
