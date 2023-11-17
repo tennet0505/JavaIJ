@@ -39,7 +39,6 @@ public class Main {
 
         System.out.print(passedSteps.length == 0 ?
                 "Let's start " + playerName + ". \nChoose x: " : "Your move " + playerName + ". \nChoose x: ");
-        scanner.useDelimiter("[\\s,]+");
         int x = scanner.nextInt();
         System.out.print("Now choose y: ");
         int y = scanner.nextInt();
@@ -53,14 +52,14 @@ public class Main {
         boolean isValid = validationCoordinate(cellCoordinate);
         boolean isContainCoordinate = Arrays.asList(passedSteps).contains(cellCoordinate);
         if (isContainCoordinate) {
-            System.out.println("----- This cell is chosen, please choose other cell. ------");
+            System.out.println("❗\uFE0F----- This cell is chosen, please choose other cell. ------❗\uFE0F");
             enterCellCoordinate(playerName, scanner);
             return;
         }
         if (isValid) {
             setupTicTacArray(x, y, isFirstPlayerPlay);
         } else {
-            System.out.println("Please enter correct cell coordinate");
+            System.out.println("⛔\uFE0FPlease enter correct cell coordinate⛔\uFE0F");
             exampleCellCoordinate();
             enterCellCoordinate(playerName, scanner);
         }
@@ -86,7 +85,7 @@ public class Main {
         }
 
         if (isGameEnded()) {
-            System.out.printf("%s you are a WINNER!", (isFirstPlayerPlay ? firstPlayerName : secondPlayerName));
+            System.out.printf("%s you are a WINNER!\uD83C\uDF89", (isFirstPlayerPlay ? firstPlayerName : secondPlayerName));
         } else {
             addPassedStep(x,y);
             isFirstPlayerPlay = !isFirstPlayerPlay;
@@ -126,6 +125,11 @@ public class Main {
         return isEnded;
     }
 
+    static String coloredString(String x) {
+        final String ANSI_RESET = "\u001B[0m";
+        final String ANSI_RED_BACKGROUND = "\u001B[41m";
+        return ANSI_RED_BACKGROUND + x + ANSI_RESET;
+    }
 
     //update array with passed coordinates
     static void addPassedStep(int x, int y) {
