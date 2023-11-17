@@ -2,7 +2,7 @@
 // then press Enter. You can now see whitespace characters in your code.
 
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 public class Main {
 
@@ -14,50 +14,63 @@ public class Main {
     public static void main(String[] args) {
         Main.startGame();
     }
-    static String firstPlayerName = "";
-    static String secondPlayerName = "";
+    static String playerName = "";
+    static String secondPlayerName = "I am";
     static void startGame() {
         System.out.println("Let's play Tic Tac Toe.");
-        System.out.println("Human vs Human version");
-        System.out.print("First player enter your name: ");
+        System.out.println("Human vs Comp version");
+        System.out.print("Player enter your name: ");
         String firstUserName = scanner.nextLine();
-        firstPlayerName = firstUserName;
+        playerName = firstUserName;
 
         System.out.printf("Nice to meet you %s, you are playing with \"X\" \n", firstUserName);
-        System.out.print("Second player enter your name: ");
-        String secondUserName = scanner.nextLine();
-        secondPlayerName = secondUserName;
-
-        System.out.printf("Nice to meet you %s you are playing with \"O\"\n", secondUserName);
+        System.out.print("I am an AI and I will your concurrent! I am playing with \"O\"\n");
+//        String secondUserName = scanner.nextLine();
+//        secondPlayerName = secondUserName;
+//        System.out.printf("Nice to meet you %s you are playing with \"O\"\n", secondUserName);
         exampleCellCoordinate();
-        enterCellCoordinate(firstPlayerName, scanner);
+        enterCellCoordinate(playerName, scanner);
     }
 
     //input coordinate
     static void enterCellCoordinate(String playerName, Scanner scanner) {
-        isFirstPlayerPlay = Objects.equals(playerName, firstPlayerName);
+//        isFirstPlayerPlay = Objects.equals(playerName, playerName);
 
-        System.out.print(passedSteps.length == 0 ?
-                "Let's start " + playerName + ". \nChoose x: " : "Your move " + playerName + ". \nChoose x: ");
-        int x = scanner.nextInt();
-        System.out.print("Now choose y: ");
-        int y = scanner.nextInt();
-        System.out.printf("%s. Your cell is (%s, %s) \n", playerName, x, y);
-        chooseCellWithValidation(x, y, playerName, scanner);
+
+        if (isFirstPlayerPlay) {
+            isFirstPlayerPlay = false;
+            System.out.print(passedSteps.length == 0 ?
+                    "Let's start " + playerName + ". You go first. \nChoose x: " : "Your move " + playerName + ". \nChoose x: ");
+            int x = scanner.nextInt();
+            System.out.print("Now choose y: ");
+            int y = scanner.nextInt();
+            System.out.printf("%s. Your cell is (%s,%s) \n", playerName, x, y);
+            checkCellWithValidation(x, y, playerName, scanner);
+        } else {
+            isFirstPlayerPlay = true;
+            Random random = new Random();
+            int indexX = random.nextInt(3);
+            int indexY = random.nextInt(3);
+            String cellCoordinate = String.format("(%s,%s)", indexX, indexY);
+            boolean isContainCoordinate = Arrays.asList(passedSteps).contains(cellCoordinate);
+            System.out.println(!isContainCoordinate ? "My move is: " + cellCoordinate : "");
+            checkCellWithValidation(indexX, indexY, playerName, scanner);
+        }
     }
 
     //choose coordinate for player
-    static void chooseCellWithValidation(int x, int y, String playerName, Scanner scanner) {
+    static void checkCellWithValidation(int x, int y, String playerName, Scanner scanner) {
         String cellCoordinate = String.format("(%s,%s)",x, y);
         boolean isValid = validationCoordinate(cellCoordinate);
         boolean isContainCoordinate = Arrays.asList(passedSteps).contains(cellCoordinate);
         if (isContainCoordinate) {
-            System.out.println("❗️----- This cell is chosen, please choose other cell. ------❗️");
+            isFirstPlayerPlay = ! isFirstPlayerPlay;
+            System.out.println(isFirstPlayerPlay ? "❗️----- This cell is chosen, please choose other cell. ------❗️" : "I am thinking \uD83E\uDD14");
             enterCellCoordinate(playerName, scanner);
             return;
         }
         if (isValid) {
-            setupTicTacArray(x, y, isFirstPlayerPlay);
+            setupTicTacArray(x, y, !isFirstPlayerPlay);
         } else {
             System.out.println("⛔️Please enter correct cell coordinate⛔️");
             exampleCellCoordinate();
@@ -85,11 +98,12 @@ public class Main {
         }
 
         if (isGameEnded()) {
-            System.out.printf("%s you are a WINNER!\uD83C\uDF89", (isFirstPlayerPlay ? firstPlayerName : secondPlayerName));
+            System.out.print(isFirstPlayerPlay ? ("\uD83C\uDF89 Congratulation " + playerName + " you are a WINNER! \uD83C\uDF89") : "I am a WINNER! Ha-ha-ha.\uD83C\uDF89");
+        } else if (passedSteps.length == 9) {
+            System.out.print("Finally! A worthy opponent! Our battle was legendary! \uD83E\uDD1D");
         } else {
-            addPassedStep(x,y);
-            isFirstPlayerPlay = !isFirstPlayerPlay;
-            enterCellCoordinate((isFirstPlayerPlay ? firstPlayerName : secondPlayerName), scanner);
+            addPassedStep(x, y);
+            enterCellCoordinate(playerName, scanner);
         }
     }
 
