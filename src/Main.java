@@ -52,14 +52,14 @@ public class Main {
         boolean isValid = validationCoordinate(cellCoordinate);
         boolean isContainCoordinate = Arrays.asList(passedSteps).contains(cellCoordinate);
         if (isContainCoordinate) {
-            System.out.println("❗\uFE0F----- This cell is chosen, please choose other cell. ------❗\uFE0F");
+            System.out.println("❗️----- This cell is chosen, please choose other cell. ------❗️");
             enterCellCoordinate(playerName, scanner);
             return;
         }
         if (isValid) {
             setupTicTacArray(x, y, isFirstPlayerPlay);
         } else {
-            System.out.println("⛔\uFE0FPlease enter correct cell coordinate⛔\uFE0F");
+            System.out.println("⛔️Please enter correct cell coordinate⛔️");
             exampleCellCoordinate();
             enterCellCoordinate(playerName, scanner);
         }
