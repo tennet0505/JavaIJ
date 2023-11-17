@@ -15,7 +15,6 @@ public class Main {
         Main.startGame();
     }
     static String playerName = "";
-    static String secondPlayerName = "I am";
     static void startGame() {
         System.out.println("Let's play Tic Tac Toe.");
         System.out.println("Human vs Comp version");
@@ -137,12 +136,6 @@ public class Main {
             isEnded = true;
         }
         return isEnded;
-    }
-
-    static String coloredString(String x) {
-        final String ANSI_RESET = "\u001B[0m";
-        final String ANSI_RED_BACKGROUND = "\u001B[41m";
-        return ANSI_RED_BACKGROUND + x + ANSI_RESET;
     }
 
     //update array with passed coordinates
