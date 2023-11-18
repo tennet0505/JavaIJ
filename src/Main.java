@@ -160,6 +160,36 @@ public class Main {
         Main.passedSteps = updatedArray;
     }
 
+    static void checkWinPattern() {
+        /*
+        first step
+        - check the center:
+                boolean isCenterHasOccupied = the center is occupied?
+                if isCenterHasOccupied {
+                   then we have to occupy any corner
+                } else {
+                   we have to occupy the center
+                }
+
+        second step
+        -       if isCenterHasOccupied {
+                    check and guard !!!
+                } else {
+                    we have to occupy any free corner
+                }
+       third step
+       -        boolean isWinCase = check rows, columns and diagonals for win case
+                if  isWinCase {
+                    occupy cell //we are a winner
+                } else {
+                    guard position
+                }
+       last step
+       -        repeat previous step
+         */
+
+    }
+
     //color for background
     static String coloredStringBackground(String x) {
         final String ANSI_RESET = "\u001B[0m";
