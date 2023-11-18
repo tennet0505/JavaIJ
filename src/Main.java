@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 public class Main {
-
     static String[][] ticTacArray = {{" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}};
     static String[] passedSteps = {};
     static Scanner scanner = new Scanner(System.in);
@@ -24,17 +23,12 @@ public class Main {
 
         System.out.printf("Nice to meet you %s, you are playing with \"X\" \n", firstUserName);
         System.out.print("I am an AI and I will your concurrent! I am playing with \"O\"\n");
-//        String secondUserName = scanner.nextLine();
-//        secondPlayerName = secondUserName;
-//        System.out.printf("Nice to meet you %s you are playing with \"O\"\n", secondUserName);
         exampleCellCoordinate();
         enterCellCoordinate(playerName, scanner);
     }
 
     //input coordinate
     static void enterCellCoordinate(String playerName, Scanner scanner) {
-//        isFirstPlayerPlay = Objects.equals(playerName, playerName);
-
 
         if (isFirstPlayerPlay) {
             isFirstPlayerPlay = false;
@@ -88,6 +82,20 @@ public class Main {
     // setup tic tac array
     static void setupTicTacArray(int x, int y, boolean isFirstPlayerPlay) {
 
+        if (passedSteps.length == 8) {
+            setupTicTacField(x, y, isFirstPlayerPlay);
+            System.out.print("Finally! A worthy opponent! Our battle was legendary! \uD83E\uDD1D");
+        } else if (isGameEnded()) {
+            setupTicTacField(x, y, isFirstPlayerPlay);
+            System.out.print(isFirstPlayerPlay ? ("\uD83C\uDF89 Congratulation " + playerName + " you are a WINNER! \uD83C\uDF89") : "I am a WINNER! Ha-ha-ha.\uD83C\uDF89");
+        } else {
+            setupTicTacField(x, y, isFirstPlayerPlay);
+            addPassedStep(x, y);
+            enterCellCoordinate(playerName, scanner);
+        }
+    }
+
+    static void setupTicTacField(int x, int y, boolean isFirstPlayerPlay) {
         Main.ticTacArray[x][y] = " " + (isFirstPlayerPlay ? "X" : "O") + " ";
         for (int i = 0; i < Main.ticTacArray.length; i++) {
             for (int j = 0; j < Main.ticTacArray[i].length; j++) {
@@ -95,44 +103,49 @@ public class Main {
             }
             System.out.println("\t");
         }
-
-        if (isGameEnded()) {
-            System.out.print(isFirstPlayerPlay ? ("\uD83C\uDF89 Congratulation " + playerName + " you are a WINNER! \uD83C\uDF89") : "I am a WINNER! Ha-ha-ha.\uD83C\uDF89");
-        } else if (passedSteps.length == 9) {
-            System.out.print("Finally! A worthy opponent! Our battle was legendary! \uD83E\uDD1D");
-        } else {
-            addPassedStep(x, y);
-            enterCellCoordinate(playerName, scanner);
-        }
     }
 
     //checking game's status
     static boolean isGameEnded() {
         boolean isEnded = false;
+        //check first row
         for (int i = 0; i < Main.ticTacArray.length; i++) {
             if (Main.ticTacArray[i][0].equals(Main.ticTacArray[i][1])
                     && Main.ticTacArray[i][0].equals(Main.ticTacArray[i][2])
                     && !Main.ticTacArray[i][0].equals(" _ ")) {
+                Main.ticTacArray[i][0] = coloredStringBackground(Main.ticTacArray[i][0]);
+                Main.ticTacArray[i][1] = coloredStringBackground(Main.ticTacArray[i][0]);
+                Main.ticTacArray[i][2] = coloredStringBackground(Main.ticTacArray[i][0]);
                 isEnded = true;
                 break;
             }
         }
+        //check first column
         for (int j = 0; j < Main.ticTacArray.length; j++) {
             if (Main.ticTacArray[0][j].equals(Main.ticTacArray[1][j])
                     && Main.ticTacArray[0][j].equals(Main.ticTacArray[2][j])
                     && !Main.ticTacArray[0][j].equals(" _ ")) {
+                Main.ticTacArray[1][j] = coloredStringBackground(Main.ticTacArray[1][j]);
                 isEnded = true;
                 break;
             }
         }
+        //check first diagonal
         if (Main.ticTacArray[0][0].equals(Main.ticTacArray[1][1])
                     && Main.ticTacArray[0][0].equals(Main.ticTacArray[2][2])
                     && !Main.ticTacArray[0][0].equals(" _ ")) {
+                Main.ticTacArray[0][0] = coloredStringBackground(Main.ticTacArray[0][0]);
+                Main.ticTacArray[1][1] = coloredStringBackground(Main.ticTacArray[1][1]);
+                Main.ticTacArray[2][2] = coloredStringBackground(Main.ticTacArray[2][2]);
                 isEnded = true;
         }
+        //check first diagonal
         if (Main.ticTacArray[2][0].equals(Main.ticTacArray[1][1])
                 && Main.ticTacArray[2][0].equals(Main.ticTacArray[0][2])
                 && !Main.ticTacArray[2][0].equals(" _ ")) {
+            Main.ticTacArray[2][0] = coloredStringBackground(Main.ticTacArray[2][0]);
+            Main.ticTacArray[1][1] = coloredStringBackground(Main.ticTacArray[1][1]);
+            Main.ticTacArray[0][2] = coloredStringBackground(Main.ticTacArray[0][2]);
             isEnded = true;
         }
         return isEnded;
@@ -145,6 +158,13 @@ public class Main {
         System.arraycopy(Main.passedSteps, 0, updatedArray, 0, Main.passedSteps.length);
         updatedArray[Main.passedSteps.length] = cellCoordinate;
         Main.passedSteps = updatedArray;
+    }
+
+    //color for background
+    static String coloredStringBackground(String x) {
+        final String ANSI_RESET = "\u001B[0m";
+        final String ANSI_RED_BACKGROUND = "\u001B[41m";
+        return ANSI_RED_BACKGROUND + x + ANSI_RESET;
     }
 
     //example cell coordinate
