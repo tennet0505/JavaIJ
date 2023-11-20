@@ -35,20 +35,35 @@ public class Main {
 
         if (isFirstPlayerPlay) {
             isFirstPlayerPlay = false;
-            System.out.print(passedSteps.length == 0 ?
+
+            int x = validateInputIsIntWithText(passedSteps.length == 0 ?
                     "Let's start " + playerName + ". You go first. \nChoose x: " : "Your move " + playerName + ". \nChoose x: ");
-            int x = scanner.nextInt();
-            System.out.print("Now choose y: ");
-            int y = scanner.nextInt();
+            int y = validateInputIsIntWithText("Now choose y: ");
+
             System.out.printf("%s. Your cell is (%s,%s) \n", playerName, x, y);
             checkCellWithValidation(x, y, playerName, scanner);
-
         } else {
             computerStep += 1;
             isFirstPlayerPlay = true;
-            System.out.println("step: " + computerStep);
             checkPattern();
         }
+    }
+
+    //validateInput
+    static int validateInputIsIntWithText(String text) {
+        int x = 0;
+        while (true) {   // wil break on sucess
+            Scanner input = new Scanner(System.in);
+            System.out.print(text);
+            String digit = input.nextLine();
+            try{
+                x = Integer.parseInt(digit);
+                break;
+            }catch (NumberFormatException ex){
+                System.out.println("Invalid input " + x + " is not a number");
+            }
+        }
+        return x;
     }
 
     static void checkPattern() {
@@ -173,7 +188,8 @@ public class Main {
             }
         }
     }
-    //choose coordinate for player
+
+    //check validation
     static void checkCellWithValidation(int x, int y, String playerName, Scanner scanner) {
         String cellCoordinate = String.format("(%s,%s)",x, y);
         boolean isValid = validationCoordinate(cellCoordinate);
@@ -208,13 +224,13 @@ public class Main {
     if (passedSteps.length == 8) {
         if (isGameEnded()) {
             System.out.println(isFirstPlayerPlay ? ("\uD83C\uDF89 Congratulation " + playerName + " you are a WINNER! \uD83C\uDF89") : "I am a WINNER! Ha-ha-ha.\uD83C\uDF89");
-        System.exit(0);
+            System.exit(0);
         } else {
             setupTicTacField(x, y, isFirstPlayerPlay);
             System.out.println("Finally! A worthy opponent! Our battle was legendary! \uD83E\uDD1D");
             System.exit(0);
         }
-        } else {
+    } else {
             setupTicTacField(x, y, isFirstPlayerPlay);
             if (isGameEnded()) {
                 System.out.println(isFirstPlayerPlay ? ("\uD83C\uDF89 Congratulation " + playerName + " you are a WINNER! \uD83C\uDF89") : "I am a WINNER! Ha-ha-ha.\uD83C\uDF89");
@@ -227,13 +243,13 @@ public class Main {
     }
     static void setupTicTacField(int x, int y, boolean isFirstPlayerPlay) {
         Main.ticTacArray[x][y] = (isFirstPlayerPlay ? " X " : " O ");
+
         for (int i = 0; i < Main.ticTacArray.length; i++) {
             for (int j = 0; j < Main.ticTacArray[i].length; j++) {
                 System.out.print(Main.ticTacArray[i][j]);
             }
             System.out.println("\t");
         }
-//setup vertical array
         Main.ticTacArrayVertical[y][x] = (isFirstPlayerPlay ? " X " : " O ");
 
         String cellCoordinate = String.format("(%s,%s)",x, y);
@@ -273,7 +289,7 @@ public class Main {
             }
         }
 
-        //check first column
+        //check columns
         for (int i = 0; i < Main.ticTacArrayVertical.length; i++) {
             if (Main.ticTacArrayVertical[i][0].equals(Main.ticTacArrayVertical[i][1])
                     && Main.ticTacArrayVertical[i][0].equals(Main.ticTacArrayVertical[i][2])
@@ -326,12 +342,18 @@ public class Main {
 
     //example cell coordinate
     static void exampleCellCoordinate() {
+
         System.out.println("\n");
-        System.out.println("(0,0) | (0,1) | (0,2)");
-        System.out.println("---------------------");
-        System.out.println("(1,0) | (1,1) | (1,2)");
-        System.out.println("---------------------");
-        System.out.println("(2,0) | (2,1) | (2,2)");
+        System.out.println("                  |       |      ");
+        System.out.println("            (0,0) | (0,1) | (0,2)");
+        System.out.println("          -------------------------");
+        System.out.println("            (1,0) | (1,1) | (1,2)");
+        System.out.println("          -------------------------");
+        System.out.println("            (2,0) | (2,1) | (2,2)");
+        System.out.println("                  |       |      ");
         System.out.println("\n");
+        System.out.println("=============================================");
+        System.out.println("||  First choose \"x\", then \"y\": (x,y)  ||");
+        System.out.println("=============================================");
     }
 }
