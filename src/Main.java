@@ -3,7 +3,6 @@
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Random;
 import java.util.Scanner;
 public class Main {
     static String[][] ticTacArray = {{" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}};
