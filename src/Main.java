@@ -162,30 +162,32 @@ public class Main {
                             System.out.println("My move is: (" + 0 + "," + 0 + ")");
                             if (isWinningPattern) {
                                 isGameEnded = true;
+                                setupTicTacArray(0, 0, !isFirstPlayerPlay);
+                                break;
                             }
-                            setupTicTacArray(0, 0, !isFirstPlayerPlay);
-                            break;
                         case ("(1,1)"), ("(0,1)"):
                             System.out.println("My move is: (" + 1 + "," + 1 + ")");
                             if (isWinningPattern) {
                                 isGameEnded = true;
+                                setupTicTacArray(1, 1, !isFirstPlayerPlay);
+                                break;
                             }
-                            setupTicTacArray(1, 1, !isFirstPlayerPlay);
-                            break;
+
                         case ("(0,2)"):
                             System.out.println("My move is: (" + 2 + "," + 2 + ")");
                             if (isWinningPattern) {
                                 isGameEnded = true;
+                                setupTicTacArray(2, 2, !isFirstPlayerPlay);
+                                break;
                             }
-                            setupTicTacArray(2, 2, !isFirstPlayerPlay);
-                            break;
+
                         case ("(1,2)"):
                             System.out.println("My move is: (" + 0 + "," + 2 + ")");
                             if (isWinningPattern) {
                                 isGameEnded = true;
+                                setupTicTacArray(0, 2, !isFirstPlayerPlay);
+                                break;
                             }
-                            setupTicTacArray(0, 2, !isFirstPlayerPlay);
-                            break;
                         default:
                             System.out.println("wrong coordinate!!!!!");
                     }
