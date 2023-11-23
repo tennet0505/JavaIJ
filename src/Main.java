@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 public class Main {
-    static String[][] ticTacArray = {{" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}};
-    static String[][] ticTacArrayVertical = {{" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}};
-    static String[][] ticTacArrayDiagonals = {{" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}};
+    static String[][] ticTacArray = {{"➖", "➖", "➖"}, {"➖", "➖", "➖"}, {"➖", "➖", "➖"}};
+    static String[][] ticTacArrayVertical = {{"➖", "➖", "➖"}, {"➖", "➖", "➖"}, {"➖", "➖", "➖"}};
+    static String[][] ticTacArrayDiagonals = {{"➖", "➖", "➖"}, {"➖", "➖", "➖"}};
     static String[] passedSteps = {};
     static Scanner scanner = new Scanner(System.in);
     static boolean isFirstPlayerPlay = true;
@@ -18,6 +18,9 @@ public class Main {
     static String playerName = "";
     static boolean isGameEnded = false;
     static boolean isNextGame = false;
+    static String X = "❎";
+    static String O = "\uD83C\uDD7E️";
+    static String E = "➖";
     static void startGame() {
 
         if (!isNextGame) {
@@ -26,8 +29,8 @@ public class Main {
             System.out.print("Player enter your name: ");
             String firstUserName = scanner.nextLine();
             playerName = firstUserName;
-            System.out.printf("Nice to meet you %s, you are playing with \"X\" \n", firstUserName);
-            System.out.print("I am an AI and I will your concurrent! I am playing with \"O\"\n");
+            System.out.printf("Nice to meet you %s, you are playing with \"❎\" \n", firstUserName);
+            System.out.print("I am an AI and I will your concurrent! I am playing with \"\uD83C\uDD7E️\"\n");
             exampleCellCoordinate();
         } else {
             System.out.println("Next Game.");
@@ -39,9 +42,9 @@ public class Main {
         isFirstPlayerPlay = true;
         computerStep = 0;
         isGameEnded = false;
-        ticTacArray = new String[][]{{" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}};
-        ticTacArrayVertical =  new String[][]{{" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}};
-        ticTacArrayDiagonals =  new String[][]{{" _ ", " _ ", " _ "}, {" _ ", " _ ", " _ "}};
+        ticTacArray = new String[][]{{E, E, E}, {E, E, E}, {E, E, E}};
+        ticTacArrayVertical =  new String[][]{{E, E, E}, {E, E, E}, {E, E, E}};
+        ticTacArrayDiagonals =  new String[][]{{E, E, E}, {E, E, E}};
         passedSteps = new String[]{};
     }
 
@@ -67,7 +70,7 @@ public class Main {
     //validateInput
     static int validateInputIsIntWithText(String text) {
         int x = 0;
-        while (true) {   // wil break on sucess
+        while (true) {
             Scanner input = new Scanner(System.in);
             System.out.print(text);
             String digit = input.nextLine();
@@ -106,15 +109,15 @@ public class Main {
         for (int i = 0; i < Main.ticTacArray.length; i++) {
             int countOfXinRow = 0;
             for (int j = 0; j < Main.ticTacArray[i].length; j++) {
-                if (Objects.equals(Main.ticTacArray[i][j], " _ ")) {
+                if (Objects.equals(Main.ticTacArray[i][j], E)) {
                     occupiedI = i;
                     occupiedJ = j;
                 }
-                if (Objects.equals(Main.ticTacArray[i][j], isWinningPattern ? " O " : " X ")) {
+                if (Objects.equals(Main.ticTacArray[i][j], isWinningPattern ? O : X)) {
                     countOfXinRow +=1;
                 }
             }
-            if (countOfXinRow == 2 && Arrays.asList(Main.ticTacArray[i]).contains(" _ ")) {
+            if (countOfXinRow == 2 && Arrays.asList(Main.ticTacArray[i]).contains(E)) {
                 System.out.println("My move is: (" + occupiedI + "," + occupiedJ + ")");
                 if (isWinningPattern) {
                     isGameEnded = true;
@@ -127,15 +130,15 @@ public class Main {
         for (int i = 0; i < Main.ticTacArrayVertical.length; i++) {
             int countOfXinColumn = 0;
             for (int j = 0; j < Main.ticTacArrayVertical[i].length; j++) {
-                if (Objects.equals(Main.ticTacArrayVertical[i][j], " _ ")) {
+                if (Objects.equals(Main.ticTacArrayVertical[i][j], E)) {
                     occupiedI = i;
                     occupiedJ = j;
                 }
-                if (Objects.equals(Main.ticTacArrayVertical[i][j], isWinningPattern ? " O " : " X ")) {
+                if (Objects.equals(Main.ticTacArrayVertical[i][j], isWinningPattern ? O : X)) {
                     countOfXinColumn += 1;
                 }
             }
-            if (countOfXinColumn == 2 && Arrays.asList(Main.ticTacArrayVertical[i]).contains(" _ ")) {
+            if (countOfXinColumn == 2 && Arrays.asList(Main.ticTacArrayVertical[i]).contains(E)) {
                 System.out.println("My move is: (" + occupiedJ + "," + occupiedI + ")");
                 if (isWinningPattern) {
                     isGameEnded = true;
@@ -148,14 +151,14 @@ public class Main {
         for (int i = 0; i < Main.ticTacArrayDiagonals.length; i++) {
             int countOfXinColumn = 0;
             for (int j = 0; j < Main.ticTacArrayDiagonals[i].length; j++) {
-                if (Objects.equals(Main.ticTacArrayDiagonals[i][j], " _ ")) {
+                if (Objects.equals(Main.ticTacArrayDiagonals[i][j], E)) {
                     occupiedI = i;
                     occupiedJ = j;
                 }
-                if (Objects.equals(Main.ticTacArrayDiagonals[i][j], isWinningPattern ? " O " : " X ")) {
+                if (Objects.equals(Main.ticTacArrayDiagonals[i][j], isWinningPattern ? O : X)) {
                     countOfXinColumn += 1;
                 }
-                if (countOfXinColumn == 2 && Arrays.asList(Main.ticTacArrayDiagonals[i]).contains(" _ ")) {
+                if (countOfXinColumn == 2 && Arrays.asList(Main.ticTacArrayDiagonals[i]).contains(E)) {
                     String cellCoordinate = String.format("(%s,%s)",occupiedI, occupiedJ);
                     switch (cellCoordinate) {
                         case ("(0,0)"):
@@ -189,7 +192,7 @@ public class Main {
                                 break;
                             }
                         default:
-                            System.out.println("wrong coordinate!!!!!");
+                            System.out.println("wrong coordinate!!!");
                     }
                 }
             }
@@ -222,7 +225,7 @@ public class Main {
 
         for (int i = 0; i < Main.ticTacArray.length; i++) {
             for (int j = 0; j < Main.ticTacArray[i].length; j++) {
-                if (Objects.equals(Main.ticTacArray[i][j], " _ ")) {
+                if (Objects.equals(Main.ticTacArray[i][j], E)) {
                     System.out.println("My move is: (" + i + "," + j + ")");
                     setupTicTacArray(i, j, !isFirstPlayerPlay);
                 }
@@ -302,26 +305,26 @@ public class Main {
     }
 
     static void setupTicTacToeField(int x, int y, boolean isFirstPlayerPlay) {
-        Main.ticTacArray[x][y] = (isFirstPlayerPlay ? " X " : " O ");
-        Main.ticTacArrayVertical[y][x] = (isFirstPlayerPlay ? " X " : " O ");
+        Main.ticTacArray[x][y] = (isFirstPlayerPlay ? X : O);
+        Main.ticTacArrayVertical[y][x] = (isFirstPlayerPlay ? X : O);
 
         String cellCoordinate = String.format("(%s,%s)",x, y);
         switch (cellCoordinate) {
             case "(0,0)":
-                Main.ticTacArrayDiagonals[0][0] = (isFirstPlayerPlay ? " X " : " O ");
+                Main.ticTacArrayDiagonals[0][0] = (isFirstPlayerPlay ? X : O);
                 break;
             case "(1,1)":
-                Main.ticTacArrayDiagonals[0][1] = (isFirstPlayerPlay ? " X " : " O ");
-                Main.ticTacArrayDiagonals[1][1] = (isFirstPlayerPlay ? " X " : " O ");
+                Main.ticTacArrayDiagonals[0][1] = (isFirstPlayerPlay ? X : O);
+                Main.ticTacArrayDiagonals[1][1] = (isFirstPlayerPlay ? X : O);
                 break;
             case "(2,2)":
-                Main.ticTacArrayDiagonals[0][2] = (isFirstPlayerPlay ? " X " : " O ");
+                Main.ticTacArrayDiagonals[0][2] = (isFirstPlayerPlay ? X : O);
                 break;
             case "(2,0)":
-                Main.ticTacArrayDiagonals[1][0] = (isFirstPlayerPlay ? " X " : " O ");
+                Main.ticTacArrayDiagonals[1][0] = (isFirstPlayerPlay ? X : O);
                 break;
             case "(0,2)":
-                Main.ticTacArrayDiagonals[1][2] = (isFirstPlayerPlay ? " X " : " O ");
+                Main.ticTacArrayDiagonals[1][2] = (isFirstPlayerPlay ? X : O);
                 break;
         }
     }
@@ -333,7 +336,7 @@ public class Main {
         for (int i = 0; i < Main.ticTacArray.length; i++) {
             if (Main.ticTacArray[i][0].equals(Main.ticTacArray[i][1])
                     && Main.ticTacArray[i][0].equals(Main.ticTacArray[i][2])
-                    && !Main.ticTacArray[i][0].equals(" _ ")) {
+                    && !Main.ticTacArray[i][0].equals(E)) {
                 Main.ticTacArray[i][0] = coloredStringBackground(Main.ticTacArray[i][0]);
                 Main.ticTacArray[i][1] = coloredStringBackground(Main.ticTacArray[i][1]);
                 Main.ticTacArray[i][2] = coloredStringBackground(Main.ticTacArray[i][2]);
@@ -345,7 +348,7 @@ public class Main {
         for (int i = 0; i < Main.ticTacArrayVertical.length; i++) {
             if (Main.ticTacArrayVertical[i][0].equals(Main.ticTacArrayVertical[i][1])
                     && Main.ticTacArrayVertical[i][0].equals(Main.ticTacArrayVertical[i][2])
-                    && !Main.ticTacArrayVertical[i][0].equals(" _ ")) {
+                    && !Main.ticTacArrayVertical[i][0].equals(E)) {
                 Main.ticTacArray[0][i] = coloredStringBackground(Main.ticTacArrayVertical[i][0]);
                 Main.ticTacArray[1][i] = coloredStringBackground(Main.ticTacArrayVertical[i][1]);
                 Main.ticTacArray[2][i] = coloredStringBackground(Main.ticTacArrayVertical[i][2]);
@@ -355,7 +358,7 @@ public class Main {
         //check first diagonal
         if (Main.ticTacArray[0][0].equals(Main.ticTacArray[1][1])
                     && Main.ticTacArray[0][0].equals(Main.ticTacArray[2][2])
-                    && !Main.ticTacArray[0][0].equals(" _ ")) {
+                    && !Main.ticTacArray[0][0].equals(E)) {
                 Main.ticTacArray[0][0] = coloredStringBackground(Main.ticTacArray[0][0]);
                 Main.ticTacArray[1][1] = coloredStringBackground(Main.ticTacArray[1][1]);
                 Main.ticTacArray[2][2] = coloredStringBackground(Main.ticTacArray[2][2]);
@@ -365,7 +368,7 @@ public class Main {
         //check second diagonal
         if (Main.ticTacArray[2][0].equals(Main.ticTacArray[1][1])
                 && Main.ticTacArray[2][0].equals(Main.ticTacArray[0][2])
-                && !Main.ticTacArray[2][0].equals(" _ ")) {
+                && !Main.ticTacArray[2][0].equals(E)) {
             Main.ticTacArray[2][0] = coloredStringBackground(Main.ticTacArray[2][0]);
             Main.ticTacArray[1][1] = coloredStringBackground(Main.ticTacArray[1][1]);
             Main.ticTacArray[0][2] = coloredStringBackground(Main.ticTacArray[0][2]);
@@ -386,7 +389,7 @@ public class Main {
     //color for background
     static String coloredStringBackground(String x) {
         final String ANSI_RESET = "\u001B[0m";
-        final String ANSI_RED_BACKGROUND = "\u001B[41m";
+        final String ANSI_RED_BACKGROUND = "\u001B[30m";
         return ANSI_RED_BACKGROUND + x + ANSI_RESET;
     }
 
