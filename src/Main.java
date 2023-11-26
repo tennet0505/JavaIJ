@@ -67,7 +67,6 @@ public class Main {
         }
     }
 
-    //validateInput
     static int validateInputIsIntWithText(String text) {
         int x = 0;
         while (true) {
@@ -78,7 +77,7 @@ public class Main {
                 x = Integer.parseInt(digit);
                 break;
             }catch (NumberFormatException ex){
-                System.out.println("Invalid input " + x + " is not a number");
+                System.out.println("Invalid input " + x + " is not a number.\n Please enter 0, 1 or 2.");
             }
         }
         return x;
@@ -236,7 +235,7 @@ public class Main {
     //check validation
     static void checkCellWithValidation(int x, int y, String playerName, Scanner scanner) {
         String cellCoordinate = String.format("(%s,%s)",x, y);
-        boolean isValid = validationCoordinate(cellCoordinate);
+        boolean isValid = isValidCoordinate(cellCoordinate);
         boolean isContainCoordinate = Arrays.asList(passedSteps).contains(cellCoordinate);
         if (isContainCoordinate) {
             isFirstPlayerPlay = !isFirstPlayerPlay;
@@ -255,7 +254,7 @@ public class Main {
     }
 
     // check validation of input coordinate
-    static boolean validationCoordinate(String cellCoordiante) {
+    public static boolean isValidCoordinate(String cellCoordiante) {
         return switch (cellCoordiante) {
             case "(0,0)", "(0,1)", "(0,2)", "(1,0)", "(1,1)", "(1,2)", "(2,0)", "(2,1)", "(2,2)" -> true;
             default -> false;
@@ -264,7 +263,6 @@ public class Main {
 
     // setup tic tac array
     static void setupTicTacArray(int x, int y, boolean isFirstPlayerPlay) {
-/////////////////
         setupTicTacToeField(x, y, isFirstPlayerPlay);
         checkGameStatus();
         drawTicTacToeField();
