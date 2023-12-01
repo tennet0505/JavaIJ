@@ -73,10 +73,10 @@ public class Main {
             Scanner input = new Scanner(System.in);
             System.out.print(text);
             String digit = input.nextLine();
-            try{
+            try {
                 x = Integer.parseInt(digit);
                 break;
-            }catch (NumberFormatException ex){
+            } catch (NumberFormatException ex){
                 System.out.println("Invalid input " + x + " is not a number.\n Please enter 0, 1 or 2.");
             }
         }
